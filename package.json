@@ -12,6 +12,7 @@
   "author": "pyk",
   "license": "ISC",
   "dependencies": {
+    "https": "^1.0.0",
     "node-static": "^0.7.9",
     "socket.io": "^2.0.1",
     "webrtc-adapter": "^3.4.3"

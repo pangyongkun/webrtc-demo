@@ -14,16 +14,16 @@ var pcConfig = {
   }]
 };
 
-// Set up audio and video regardless of what devices are present.
+// 
 var sdpConstraints = {
   offerToReceiveAudio: true,
   offerToReceiveVideo: true
 };
 
 /////////////////////////////////////////////
+//加入或者创建房间前的操作
 
-
-var room = prompt('Enter room name:');
+var room = prompt('输入房间名称:');
 
 var socket = io.connect();
 
@@ -57,13 +57,15 @@ socket.on('log', function(array) {
 });
 
 ////////////////////////////////////////////////
+//加入房间后实现peer-to-peer的通信
 
+//用于向服务器发送消息
 function sendMessage(message) {
   console.log('Client sending message: ', message);
   socket.emit('message', message);
 }
 
-// This client receives a message
+//接收服务器发送来的消息
 socket.on('message', function(message) {
   console.log('Client received message:', message);
   if (message === 'got user media') {
@@ -93,8 +95,8 @@ var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
 
 navigator.mediaDevices.getUserMedia({
-  audio: false,
-  video: true
+  audio: true,
+  video: { width: 400, height: 400 }
 })
 .then(gotStream)
 .catch(function(e) {
@@ -112,6 +114,7 @@ function gotStream(stream) {
 }
 
 var constraints = {
+  audio: true,
   video: true
 };
 
